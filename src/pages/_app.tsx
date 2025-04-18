@@ -1,9 +1,8 @@
 import AppShell from "@/components/commons/AppShell";
-import { ToasterProvider } from "@/contexts/ToasterContext";
 import "@/styles/globals.css";
 import { HeroUIProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SessionProvider } from "next-auth/react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { AppProps } from "next/app";
 
 const queryClient = new QueryClient({
@@ -15,21 +14,16 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
-        <HeroUIProvider>
-          <ToasterProvider>
-            <AppShell>
-              <Component {...pageProps} />
-            </AppShell>
-          </ToasterProvider>
-        </HeroUIProvider>
-      </QueryClientProvider>
-    </SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      <HeroUIProvider>
+        <NextThemesProvider attribute="class" defaultTheme="light">
+          <AppShell>
+            <Component {...pageProps} />
+          </AppShell>
+        </NextThemesProvider>
+      </HeroUIProvider>
+    </QueryClientProvider>
   );
 }

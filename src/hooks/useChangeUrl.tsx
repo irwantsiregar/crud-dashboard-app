@@ -4,6 +4,7 @@ import {
   PAGE_DEFAULT,
 } from "@/constants/limit.constants";
 import useDebounce from "@/hooks/useDebounce";
+import { SortDescriptor } from "@heroui/react";
 import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
 
@@ -14,6 +15,8 @@ const useChangeUrl = () => {
   const currentLimit = router.query.limit;
   const currentPage = router.query.page;
   const currentSearch = router.query.search;
+  const currentSortBy = router.query.sortBy;
+  const currentOrder = router.query.order;
 
   const setURL = () => {
     router.replace({
@@ -21,6 +24,10 @@ const useChangeUrl = () => {
         limit: currentLimit || LIMIT_DEFAULT,
         page: currentPage || PAGE_DEFAULT,
         search: currentSearch || "",
+        ...(!(!currentSortBy && !currentOrder) && {
+          sortBy: currentSortBy,
+          order: currentOrder,
+        }),
       },
     });
   };
@@ -70,15 +77,32 @@ const useChangeUrl = () => {
     });
   };
 
+  const handleSortChange = (descriptor: SortDescriptor) => {
+    console.log(descriptor);
+
+    if (descriptor.column && descriptor.direction) {
+      router.push({
+        query: {
+          ...router.query,
+          sortBy: descriptor.column,
+          order: descriptor.direction === "descending" ? "desc" : "asc",
+        },
+      });
+    }
+  };
+
   return {
     currentLimit,
     currentPage,
     currentSearch,
+    currentSortBy,
+    currentOrder,
 
     handleChangePage,
     handleChangeLimit,
     handleSearch,
     handleClearSearch,
+    handleSortChange,
     setURL,
   };
 };

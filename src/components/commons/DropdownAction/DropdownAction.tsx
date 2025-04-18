@@ -5,21 +5,23 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
-import { CiMenuBurger } from "react-icons/ci";
+import { CiMenuKebab } from "react-icons/ci";
 
-interface DropdownActionPropTypes {
+interface IDropdownActionPropTypes {
   onPressButtonDetail: () => void;
+  onPressButtonUpdate: () => void;
   onPressButtonDelete: () => void;
 }
 
-const DropdownAction = (props: DropdownActionPropTypes) => {
-  const { onPressButtonDelete, onPressButtonDetail } = props;
+const DropdownAction = (props: IDropdownActionPropTypes) => {
+  const { onPressButtonDelete, onPressButtonUpdate, onPressButtonDetail } =
+    props;
 
   return (
     <Dropdown>
       <DropdownTrigger>
         <Button isIconOnly size="sm" variant="light">
-          <CiMenuBurger className="text-default-700" />
+          <CiMenuKebab className="text-default-500" />
         </Button>
       </DropdownTrigger>
 
@@ -28,9 +30,14 @@ const DropdownAction = (props: DropdownActionPropTypes) => {
           Detail
         </DropdownItem>
 
+        <DropdownItem key="update-event-button" onPress={onPressButtonUpdate}>
+          Edit
+        </DropdownItem>
+
         <DropdownItem
           key="delete-event"
           className="text-danger-500"
+          color="danger"
           onPress={onPressButtonDelete}
         >
           Delete

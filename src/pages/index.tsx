@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import { Button } from "@heroui/react";
 import PageHead from "@/components/commons/PageHead";
-import InputFile from "@/components/ui/InputFile";
 import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,10 +14,8 @@ export default function Home() {
     >
       <PageHead title="Home" />
 
-      <InputFile name="Input Image" />
-
-      <Button color="primary" onPress={() => router.push("/admin/dashboard")}>
-        Go To Dashboard
+      <Button color="primary" onPress={() => router.push("/products")}>
+        Go to Dashboard
       </Button>
     </main>
   );

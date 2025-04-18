@@ -1,11 +1,10 @@
 import { cn } from "@/utils/cn";
-import { Button, Listbox, ListboxItem } from "@heroui/react";
-import { signOut } from "next-auth/react";
+import { Listbox, ListboxItem } from "@heroui/react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { JSX } from "react";
-import { CiLogout } from "react-icons/ci";
+import { JSX } from "react";
 
 interface SidebarItem {
   key: string;
@@ -22,14 +21,20 @@ interface PropTypes {
 function DashboardLayoutSidebar(props: PropTypes) {
   const { sidebarItems, isOpen } = props;
 
+  const { theme } = useTheme();
+
   const router = useRouter();
 
   return (
     <div
       className={cn(
-        "fixed z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col justify-between border border-r-1 border-default-200 bg-white px-4 py-6 transition-all lg:relative lg:translate-x-0",
+        "fixed z-50 flex h-screen w-full max-w-[300px] -translate-x-full flex-col justify-between border border-r-1 border-default-200 px-4 py-6 transition-all lg:relative lg:translate-x-0",
         {
           "translate-x-0": isOpen,
+          "lg:fixed": isOpen,
+          "lg:-translate-x-full": isOpen,
+          "bg-white": theme === "light",
+          "bg-black": theme === "dark",
         },
       )}
     >
@@ -40,7 +45,7 @@ function DashboardLayoutSidebar(props: PropTypes) {
             alt="logo"
             width={180}
             height={60}
-            className="mb-6 w-32"
+            className="mb-6 w-32 rounded-lg bg-default-200 p-2"
             onClick={() => router.push("/")}
           />
         </div>
@@ -68,17 +73,7 @@ function DashboardLayoutSidebar(props: PropTypes) {
       </div>
 
       <div className="flex items-center p-1">
-        <Button
-          color="danger"
-          fullWidth
-          variant="light"
-          size="lg"
-          className="flex justify-start rounded-lg px-2 py-1.5"
-          onPress={() => signOut()}
-        >
-          <CiLogout />
-          Logout
-        </Button>
+        {/* About Brand or something actions */}
       </div>
     </div>
   );
