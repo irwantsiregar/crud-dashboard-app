@@ -22,6 +22,13 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## User Account Registered
+
+Use this example user:
+
+- username: duma
+- password: Duma2025
+
 ## Available Pages
 
 - [Events](http://localhost:3000/products) - Displaying Data Event with features: Search event by name

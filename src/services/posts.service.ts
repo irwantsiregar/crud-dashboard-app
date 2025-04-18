@@ -1,4 +1,4 @@
-import instance from "@/libs/axios/instance";
+import instance from "@/libs/axios/instanceDummy";
 import endpoint from "./endpoint.constant";
 
 const postsServices = {

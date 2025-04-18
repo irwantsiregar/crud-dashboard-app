@@ -1,14 +1,16 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import MainDashboard from "@/components/views/MainDashboard";
 
-export default function Dashboard() {
+const Dashboard = () => {
   return (
     <DashboardLayout
       title="Dashboard"
-      description="Summary results from products, carts, recipes, posts"
+      description="Summary results from event, category and products, carts, recipes, posts"
       type="admin"
     >
       <MainDashboard />
     </DashboardLayout>
   );
-}
+};
+
+export default Dashboard;

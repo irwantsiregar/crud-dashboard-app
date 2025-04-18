@@ -1,4 +1,5 @@
 import AppShell from "@/components/commons/AppShell";
+import { ToasterProvider } from "@/contexts/ToasterContext";
 import "@/styles/globals.css";
 import { HeroUIProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,9 +20,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="light">
-          <AppShell>
-            <Component {...pageProps} />
-          </AppShell>
+          <ToasterProvider>
+            <AppShell>
+              <Component {...pageProps} />
+            </AppShell>
+          </ToasterProvider>
         </NextThemesProvider>
       </HeroUIProvider>
     </QueryClientProvider>

@@ -1,10 +1,12 @@
 import { cn } from "@/utils/cn";
-import { Listbox, ListboxItem } from "@heroui/react";
+import { Button, Listbox, ListboxItem } from "@heroui/react";
+import { signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { JSX } from "react";
+import { CiLogout } from "react-icons/ci";
 
 interface SidebarItem {
   key: string;
@@ -73,7 +75,19 @@ function DashboardLayoutSidebar(props: PropTypes) {
       </div>
 
       <div className="flex items-center p-1">
-        {/* About Brand or something actions */}
+        <Button
+          fullWidth
+          variant="light"
+          size="lg"
+          className="flex justify-start rounded-lg border-1 border-default-200 px-2 py-1.5 text-base text-default-600 hover:border-danger hover:text-danger"
+          onPress={() => signOut()}
+        >
+          <div className="flex w-full items-center justify-center gap-x-1">
+            <CiLogout />
+
+            <span>Logout</span>
+          </div>
+        </Button>
       </div>
     </div>
   );

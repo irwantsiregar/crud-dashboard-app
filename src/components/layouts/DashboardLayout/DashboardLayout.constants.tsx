@@ -3,6 +3,7 @@ import {
   CiGrid41,
   CiShop,
   CiShoppingCart,
+  CiShoppingTag,
   CiViewList,
 } from "react-icons/ci";
 
@@ -13,28 +14,43 @@ const SIDEBAR_ADMIN = [
     href: "/dashboard",
     icon: <CiGrid41 />,
   },
+
+  {
+    key: "event",
+    label: "Event",
+    href: "/admin/event",
+    icon: <CiViewList />,
+  },
+  {
+    key: "category",
+    label: "Category",
+    href: "/admin/category",
+    icon: <CiShoppingTag />,
+  },
+
+  // Pages for Public API
   {
     key: "products",
     label: "Products",
-    href: "/products",
+    href: "/admin/products",
     icon: <CiShop />,
   },
   {
     key: "carts",
     label: "Carts",
-    href: "/carts",
+    href: "/admin/carts",
     icon: <CiShoppingCart />,
   },
   {
     key: "recipes",
     label: "Recipes",
-    href: "/recipes",
+    href: "/admin/recipes",
     icon: <CiFries />,
   },
   {
     key: "posts",
     label: "Posts",
-    href: "/posts",
+    href: "/admin/posts",
     icon: <CiViewList />,
   },
 ];
