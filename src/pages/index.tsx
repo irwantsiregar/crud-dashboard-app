@@ -14,7 +14,7 @@ export default function Home() {
     >
       <PageHead title="Home" />
 
-      <Button color="primary" onPress={() => router.push("/products")}>
+      <Button color="primary" onPress={() => router.push("/admin/dashboard")}>
         Go to Dashboard
       </Button>
     </main>

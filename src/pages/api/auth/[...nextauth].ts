@@ -37,8 +37,6 @@ export default NextAuth({
           password,
         });
 
-        // console.log("Login: ", result);
-
         const accessToken = result?.data?.data;
 
         const me = await authServices.getProfileWithToken(accessToken);

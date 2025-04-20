@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { JSX } from "react";
+import { JSX, useEffect } from "react";
 import { CiLogout } from "react-icons/ci";
 
 interface SidebarItem {
@@ -26,6 +26,8 @@ function DashboardLayoutSidebar(props: PropTypes) {
   const { theme } = useTheme();
 
   const router = useRouter();
+
+  useEffect(() => {}, [isOpen]);
 
   return (
     <div
@@ -80,7 +82,9 @@ function DashboardLayoutSidebar(props: PropTypes) {
           variant="light"
           size="lg"
           className="flex justify-start rounded-lg border-1 border-default-200 px-2 py-1.5 text-base text-default-600 hover:border-danger hover:text-danger"
-          onPress={() => signOut()}
+          onPress={async () => {
+            await signOut();
+          }}
         >
           <div className="flex w-full items-center justify-center gap-x-1">
             <CiLogout />

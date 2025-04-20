@@ -2,7 +2,14 @@ import CardSummary from "@/components/ui/CardSummary";
 import useCarts from "@/components/views/Carts/useCarts";
 import useProducts from "@/components/views/Products/useProducts";
 import useChangeUrl from "@/hooks/useChangeUrl";
-import { Button, Card, CardBody, CardHeader, Chip } from "@heroui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Chip,
+  Skeleton,
+} from "@heroui/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { BsBookmarkCheck } from "react-icons/bs";
@@ -20,6 +27,9 @@ const SectionCards = () => {
   const { dataCarts, isLoadingCarts } = useCarts();
   const { dataPosts, isLoadingPosts } = usePosts();
   const { dataRecipes, isLoadingRecipes } = useRecipes();
+
+  const isLoadingAll =
+    isLoadingProducts && isLoadingCarts && isLoadingPosts && isLoadingRecipes;
 
   const { setURL } = useChangeUrl();
 
@@ -148,82 +158,76 @@ const SectionCards = () => {
       {/* Chart Mixed */}
       <div className="col-span-12 pb-4 lg:pb-0 xl:col-span-8">
         <div className="relative flex flex-col gap-2 overflow-hidden p-3">
-          <Card>
-            <CardHeader>
-              <div className="flex w-full items-center justify-between px-2 pb-2">
-                <h4 className="text-medium font-semibold">All Overview</h4>
+          <Skeleton isLoaded={!isLoadingAll} className="rounded-lg">
+            <Card>
+              <CardHeader>
+                <div className="flex w-full items-center justify-between px-2 pb-2">
+                  <h4 className="text-medium font-semibold">All Overview</h4>
 
-                <Button
-                  className="border-1 border-default-200 text-xs text-default-400"
-                  variant="light"
-                  size="sm"
-                >
-                  Sort By <FiChevronUp className="text-base" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <MixedChart
-                isLoading={
-                  isLoadingProducts &&
-                  isLoadingCarts &&
-                  isLoadingPosts &&
-                  !memoizeMixedData
-                }
-                seriesData={memoizeMixedData}
-              />
-            </CardBody>
-          </Card>
+                  <Button
+                    className="border-1 border-default-200 text-xs text-default-400"
+                    variant="light"
+                    size="sm"
+                  >
+                    Sort By <FiChevronUp className="text-base" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardBody>
+                <MixedChart
+                  isLoading={isLoadingAll && !memoizeMixedData}
+                  seriesData={memoizeMixedData}
+                />
+              </CardBody>
+            </Card>
+          </Skeleton>
         </div>
       </div>
 
       {/* Chart Polar */}
       <div className="col-span-12 rounded-xl xl:col-span-4">
         <div className="relative flex flex-col overflow-hidden px-2">
-          <Card>
-            <CardHeader>
-              <div className="flex w-full items-center justify-between">
-                <h4 className="text-medium font-semibold">Features</h4>
+          <Skeleton isLoaded={!isLoadingAll} className="rounded-lg">
+            <Card>
+              <CardHeader>
+                <div className="flex w-full items-center justify-between">
+                  <h4 className="text-medium font-semibold">Features</h4>
 
-                <Button
-                  isIconOnly
-                  className="border-1 border-default-200 text-sm"
-                  size="sm"
-                  variant="light"
-                >
-                  <CiMenuKebab />
-                </Button>
-              </div>
-            </CardHeader>
+                  <Button
+                    isIconOnly
+                    className="border-1 border-default-200 text-sm"
+                    size="sm"
+                    variant="light"
+                  >
+                    <CiMenuKebab />
+                  </Button>
+                </div>
+              </CardHeader>
 
-            <CardBody>
-              <div className="flex w-full flex-wrap gap-3 pb-8">
-                {["Products", "Posts", "Carts", "Recipes"].map(
-                  (item, index) => (
-                    <Chip
-                      aria-label="Features Type"
-                      color={index % 2 === 0 ? "danger" : "secondary"}
-                      className="border-default-200"
-                      size="sm"
-                      key={item}
-                    >
-                      {item}
-                    </Chip>
-                  ),
-                )}
-              </div>
+              <CardBody>
+                <div className="flex w-full flex-wrap gap-3 pb-8">
+                  {["Products", "Posts", "Carts", "Recipes"].map(
+                    (item, index) => (
+                      <Chip
+                        aria-label="Features Type"
+                        color={index % 2 === 0 ? "danger" : "secondary"}
+                        className="border-default-200"
+                        size="sm"
+                        key={item}
+                      >
+                        {item}
+                      </Chip>
+                    ),
+                  )}
+                </div>
 
-              <PolarAreaChart
-                isLoading={
-                  isLoadingProducts &&
-                  isLoadingCarts &&
-                  isLoadingPosts &&
-                  !memoizePolarArea
-                }
-                seriesData={memoizePolarArea}
-              />
-            </CardBody>
-          </Card>
+                <PolarAreaChart
+                  isLoading={isLoadingAll && !memoizePolarArea}
+                  seriesData={memoizePolarArea}
+                />
+              </CardBody>
+            </Card>
+          </Skeleton>
         </div>
       </div>
     </div>

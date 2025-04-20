@@ -5,6 +5,7 @@ import { HeroUIProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { AppProps } from "next/app";
+import { SessionProvider } from "next-auth/react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,18 +16,23 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <HeroUIProvider>
-        <NextThemesProvider attribute="class" defaultTheme="light">
-          <ToasterProvider>
-            <AppShell>
-              <Component {...pageProps} />
-            </AppShell>
-          </ToasterProvider>
-        </NextThemesProvider>
-      </HeroUIProvider>
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <HeroUIProvider>
+          <NextThemesProvider attribute="class" defaultTheme="light">
+            <ToasterProvider>
+              <AppShell>
+                <Component {...pageProps} />
+              </AppShell>
+            </ToasterProvider>
+          </NextThemesProvider>
+        </HeroUIProvider>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }

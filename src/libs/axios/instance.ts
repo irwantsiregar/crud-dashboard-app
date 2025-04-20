@@ -18,8 +18,6 @@ instance.interceptors.request.use(
   async (request) => {
     const session: SessionExtended | null = await getSession();
 
-    console.log(`EVENT: `, request);
-
     // Check if accessToken exist in session, then set headers-authorization with that accessToken
     if (session && session?.accessToken) {
       request.headers.Authorization = `Bearer ${session.accessToken}`;

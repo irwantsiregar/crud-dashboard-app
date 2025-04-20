@@ -46,7 +46,8 @@ Use this example user:
 
 - [Next.js](http://localhost:3000/products)
 - [NextUI](http://localhost:3000/products)
-- [Tailwindcss](https://tailwindcss.com/)
+- [Tailwindcss](https://tailwindcss.com)
 - [TanstackQuery](https://tanstack.com/query/latest/docs)
 - [Axios](https://axios-http.com/docs/example)
-- [ApexCharts](https://apexcharts.com/)
+- [React Hook Form](https://react-hook-form.com)
+- [ApexCharts](https://apexcharts.com)
